@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ImageGalleryApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FEFCAE;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover .image-details {
+            opacity: 1;
+        }
+
+        .image-details h3 {
+            margin: 0;
+        }
+
+        .image-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <center><h1><b>INTERACTIVE IMAGE GALLERY</b></h1></center>
+    <div class="image-gallery" ng-controller="GalleryController">
+        <div class="image-item" ng-repeat="image in images" ng-click="showDetails(image)">
+            <img ng-src="{{image.src}}" alt="{{image.title}}">
+            <div class="image-details">
+                <div>
+                    <h3>{{image.title}}</h3>
+                    <p>{{image.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        angular.module('ImageGalleryApp', [])
+            .controller('GalleryController', function ($scope) {
+                $scope.images = [
+                    {
+                        src: 'https://assets-prd.ignimgs.com/2023/04/02/templerun2-1680461914458.jpg',
+                        title: 'Game 1',
+                        description: 'Temple Run.'
+                    },
+                    {
+                        src: 'https://play-lh.googleusercontent.com/Fto1xcq6wMHJ8RiXHFjsgwxMEoTVj4wpLQO1ucBL0VP7we7OsvS1FHxf2viW-lGzHA',
+                        title: 'Game 2',
+                        description: 'Stock Car Racing .'
+                    },
+                    {
+                        src: 'https://play-lh.googleusercontent.com/-ZKAj08xVPz1nouSZGa877W8Cyw2tEP7L_uB81wkHuISPi_0bGzPcNn4Lpf3YYywGMz2',
+                        title: 'Game 3',
+                        description: 'Scary Horror 2.'
+                    },
+                    {
+                        src: 'https://assets-prd.ignimgs.com/2021/12/17/gta-5-button-2021-1639777058682.jpg',
+                        title: 'Game 4',
+                        description: 'Grand Theft Auto V - IGN'
+                    }
+                ];
+
+                $scope.showDetails = function (image) {
+                    alert('Title: ' + image.title + '\nDescription: ' + image.description);
+                };
+            });
+    </script>
+</body>
+</html>
+
